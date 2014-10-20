@@ -15,20 +15,19 @@ import com.nwinches.dao.InMemoryTaskDao;
 import com.nwinches.dao.TaskDao;
 import com.nwinches.entity.Task;
 
+@Path("task/{taskId}")
 public class TaskActivity {
   
   private TaskDao taskDao = new InMemoryTaskDao();
 
   @GET
-  @Path("task/{taskId}")
   @Produces(MediaType.APPLICATION_JSON)
   public Task getTask(@PathParam("taskId") String taskId) {
     return taskDao.getTask(taskId);
   }
   
   @POST
-  @Path("task")
-  @Consumes(MediaType.TEXT_PLAIN)
+  @Consumes(MediaType.APPLICATION_JSON)
   public void createTask(@QueryParam("task") Task task) {
     task.setId(UUID.randomUUID().toString());
 
