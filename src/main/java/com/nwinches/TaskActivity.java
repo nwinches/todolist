@@ -22,13 +22,25 @@ public class TaskActivity {
 
   @GET
   @Produces(MediaType.APPLICATION_JSON)
-  public Task getTask(@PathParam("taskId") String taskId) {
+  public Task createDummyTask() {
+    Task task = new Task();
+    task.setId(UUID.randomUUID().toString());
+    task.setTitle("dummy task");
+    task.setBody("body");
+    taskDao.saveTask(task);
+    
+    return task;
+  }
+
+  @GET
+  @Produces(MediaType.APPLICATION_JSON)
+  public Task getTask(String taskId) {
     return taskDao.getTask(taskId);
   }
   
   @POST
   @Consumes(MediaType.APPLICATION_JSON)
-  public void createTask(@QueryParam("task") Task task) {
+  public void createTask(Task task) {
     task.setId(UUID.randomUUID().toString());
 
     taskDao.saveTask(task);
