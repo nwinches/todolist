@@ -32,8 +32,8 @@ public class TaskActivity {
     return task;
   }
 
-  @GET
-  @Produces(MediaType.APPLICATION_JSON)
+  //@GET
+  //@Produces(MediaType.APPLICATION_JSON)
   public Task getTask(String taskId) {
     return taskDao.getTask(taskId);
   }
