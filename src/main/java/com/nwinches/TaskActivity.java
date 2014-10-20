@@ -15,7 +15,7 @@ import com.nwinches.dao.InMemoryTaskDao;
 import com.nwinches.dao.TaskDao;
 import com.nwinches.entity.Task;
 
-@Path("task/{taskId}")
+@Path("task")
 public class TaskActivity {
   
   private TaskDao taskDao = new InMemoryTaskDao();
