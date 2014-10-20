@@ -18,6 +18,17 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <dependency>
+              <groupId>org.projectlombok</groupId>
+              <artifactId>lombok</artifactId>
+              <version>1.14.8</version>
+              <scope>provided</scope>
+            </dependency>
+            <dependency>
+              <groupId>com.google.guava</groupId>
+              <artifactId>guava</artifactId>
+              <version>18.0</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -50,6 +61,17 @@
             <artifactId>jersey-test-framework-provider-bundle</artifactId>
             <type>pom</type>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+          <groupId>org.projectlombok</groupId>
+          <artifactId>lombok</artifactId>
+          <version>1.14.8</version>
+          <scope>provided</scope>
+        </dependency>
+        <dependency>
+          <groupId>com.google.guava</groupId>
+          <artifactId>guava</artifactId>
+          <version>18.0</version>
         </dependency>
     </dependencies>
 
