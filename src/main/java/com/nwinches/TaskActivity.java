@@ -1,14 +1,13 @@
 package com.nwinches;
 
+import java.util.List;
 import java.util.UUID;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import com.nwinches.dao.InMemoryTaskDao;
@@ -22,14 +21,14 @@ public class TaskActivity {
 
   @GET
   @Produces(MediaType.APPLICATION_JSON)
-  public Task createDummyTask() {
+  public List<Task> createDummyTask() {
     Task task = new Task();
     task.setId(UUID.randomUUID().toString());
     task.setTitle("dummy task");
     task.setBody("body");
     taskDao.saveTask(task);
     
-    return task;
+    return taskDao.listTasks();
   }
 
   //@GET
