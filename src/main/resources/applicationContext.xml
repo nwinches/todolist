@@ -8,9 +8,8 @@
         >
 
     <!-- bean id="greetingService" class="org.glassfish.jersey.examples.helloworld.spring.GreetingServiceImpl"/ -->
-    <!-- bean class="org.glassfish.jersey.examples.helloworld.spring.DateTimeService" scope="request"/ -->
-    <!-- bean class="org.glassfish.jersey.examples.helloworld.spring.SpringSingletonResource"/ -->
     <bean class="com.nwinches.TaskActivity" scope="request"/>
+    <bean id="TaskDao" class="com.nwinches.dao.InMemoryTaskDao"/>
     <!--bean class="org.glassfish.jersey.examples.helloworld.spring.CustomExceptionMapper" -->
 
 </beans>

@@ -4,6 +4,7 @@ import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.spring.scope.RequestContextFilter;
 
 import com.nwinches.TaskActivity;
+import com.nwinches.dao.InMemoryTaskDao;
 
 /**
  * This class launches the web application in an embedded Jetty container. This is the entry point
@@ -14,5 +15,6 @@ public class Main extends ResourceConfig {
   public Main() {
     register(RequestContextFilter.class);
     register(TaskActivity.class);
+    register(InMemoryTaskDao.class);
   }
 }

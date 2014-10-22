@@ -13,7 +13,10 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
-import com.nwinches.dao.InMemoryTaskDao;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import lombok.Setter;
+
 import com.nwinches.dao.TaskDao;
 import com.nwinches.entity.Task;
 import com.nwinches.exception.NoSuchTaskException;
@@ -24,7 +27,8 @@ import com.nwinches.exception.NoSuchTaskException;
 @Path("task")
 public class TaskActivity {
   
-  private TaskDao taskDao = new InMemoryTaskDao();
+  @Autowired
+  private TaskDao taskDao;
 
   @GET
   @Produces(MediaType.APPLICATION_JSON)

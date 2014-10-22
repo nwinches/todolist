@@ -1,1 +1,1 @@
-web: java -cp target/classes:target/dependency/* com.nwinches.heroku.Main
+web: java $JAVA_OPTS -jar target/dependency/webapp-runner.jar --port $PORT target/todolist-heroku-webapp.war
