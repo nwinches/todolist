@@ -1,6 +1,8 @@
 package com.nwinches.exception;
 
-public class NoSuchTaskException extends Exception {
+import javax.ws.rs.NotFoundException;
+
+public class NoSuchTaskException extends NotFoundException {
   public NoSuchTaskException() {
     super();
   }

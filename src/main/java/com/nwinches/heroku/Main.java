@@ -3,18 +3,20 @@ package com.nwinches.heroku;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.spring.scope.RequestContextFilter;
 
-import com.nwinches.TaskActivity;
 import com.nwinches.dao.InMemoryTaskDao;
+import com.nwinches.resource.TaskResource;
 
 /**
- * This class launches the web application in an embedded Jetty container. This is the entry point
- * to your application. The Java command that is used for launching should fire this main method.
+ * "Entry point" that is required in order to integrated jersey with Spring.
  */
 public class Main extends ResourceConfig {
 
+  /**
+   * JAX-RS requires registering classes in order to use them in Spring.
+   */
   public Main() {
     register(RequestContextFilter.class);
-    register(TaskActivity.class);
+    register(TaskResource.class);
     register(InMemoryTaskDao.class);
   }
 }

@@ -1,4 +1,4 @@
-package com.nwinches;
+package com.nwinches.resource;
 
 import java.util.List;
 import java.util.UUID;
@@ -25,7 +25,7 @@ import com.nwinches.exception.NoSuchTaskException;
  * Basic class for handling RESTful HTTP requests regarding tasks.
  */
 @Path("task")
-public class TaskActivity {
+public class TaskResource {
   
   @Autowired
   private TaskDao taskDao;
