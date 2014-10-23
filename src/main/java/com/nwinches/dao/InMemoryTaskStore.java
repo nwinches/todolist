@@ -13,6 +13,11 @@ public class InMemoryTaskStore implements TaskStore {
   private Map<String, Task> tasks = Maps.newLinkedHashMap();
 
   @Override
+  public boolean exists(String taskId) {
+    return tasks.containsKey(taskId);
+  }
+
+  @Override
   public Task getTask(String taskId) throws NoSuchTaskException {
     if (!tasks.containsKey(taskId)) {
       throw new NoSuchTaskException("No such task");

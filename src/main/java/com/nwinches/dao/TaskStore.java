@@ -9,6 +9,8 @@ import com.nwinches.exception.NoSuchTaskException;
  * Describes task storage and retrieval.
  */
 public interface TaskStore {
+  boolean exists(String taskId);
+  
   Task getTask(String taskId) throws NoSuchTaskException;
 
   List<Task> listTasks();
