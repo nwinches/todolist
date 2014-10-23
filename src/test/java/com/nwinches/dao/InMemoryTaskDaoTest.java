@@ -20,7 +20,7 @@ public class InMemoryTaskDaoTest {
   
   @Mock private Task task;
   
-  private TaskDao taskDao = new InMemoryTaskDao();
+  private TaskStore taskDao = new InMemoryTaskStore();
 
   @Test(expected = NoSuchTaskException.class)
   public void testGetTask_NoResults() throws Exception {

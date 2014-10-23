@@ -4,11 +4,12 @@ import java.util.List;
 import java.util.Map;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.nwinches.entity.Task;
 import com.nwinches.exception.NoSuchTaskException;
 
-public class InMemoryTaskDao implements TaskDao {
+public class InMemoryTaskStore implements TaskStore {
   private Map<String, Task> tasks = Maps.newLinkedHashMap();
 
   @Override
@@ -21,8 +22,26 @@ public class InMemoryTaskDao implements TaskDao {
 
   @Override
   public List<Task> listTasks() {
-    System.out.println(tasks.size());
     return ImmutableList.copyOf(tasks.values());
+  }
+  
+  /**
+   * Initial implementation naively does a contains search on title and body.
+   * 
+   * @param search
+   * @return
+   */
+  @Override
+  public List<Task> searchTasks(String search) {
+    List<Task> filteredTasks = Lists.newArrayList();
+    String lowerCaseSearch = search.toLowerCase();
+    for (Task task : tasks.values()) {
+      if (task.getTitle().toLowerCase().contains(lowerCaseSearch)
+          || task.getBody().toLowerCase().contains(lowerCaseSearch)) {
+        filteredTasks.add(task);
+      }
+    }
+    return filteredTasks;
   }
 
   @Override

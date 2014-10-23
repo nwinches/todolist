@@ -3,7 +3,7 @@ package com.nwinches.heroku;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.spring.scope.RequestContextFilter;
 
-import com.nwinches.dao.InMemoryTaskDao;
+import com.nwinches.dao.InMemoryTaskStore;
 import com.nwinches.resource.TaskResource;
 
 /**
@@ -17,6 +17,6 @@ public class Main extends ResourceConfig {
   public Main() {
     register(RequestContextFilter.class);
     register(TaskResource.class);
-    register(InMemoryTaskDao.class);
+    register(InMemoryTaskStore.class);
   }
 }

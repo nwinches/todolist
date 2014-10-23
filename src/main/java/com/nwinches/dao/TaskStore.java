@@ -8,10 +8,12 @@ import com.nwinches.exception.NoSuchTaskException;
 /**
  * Describes task storage and retrieval.
  */
-public interface TaskDao {
+public interface TaskStore {
   Task getTask(String taskId) throws NoSuchTaskException;
 
   List<Task> listTasks();
+  
+  List<Task> searchTasks(String search);
 
   void saveTask(Task task);
 
