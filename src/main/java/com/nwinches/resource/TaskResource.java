@@ -19,7 +19,7 @@ import javax.ws.rs.core.Response.Status;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.nwinches.dao.TaskStore;
+import com.nwinches.business.TaskHandler;
 import com.nwinches.entity.Task;
 
 /**
@@ -27,20 +27,17 @@ import com.nwinches.entity.Task;
  */
 @Path("tasks")
 public class TaskResource {
-  private static final Response ALREADY_EXISTS = 
-      Response.status(Status.FORBIDDEN).entity("Task with that id already exists").build();
-  
   @Autowired
-  private TaskStore taskStore;
+  private TaskHandler taskHandler;
 
   @GET
   @Produces(MediaType.APPLICATION_JSON)
   public List<Task> listTasks(@QueryParam("search") String search) {
     System.out.printf("GET: listing tasks with search param '%s'\n", search);
     if (search == null || search.trim().isEmpty()) {
-      return taskStore.listTasks();
+      return taskHandler.listTasks();
     } else {
-      return taskStore.searchTasks(search);
+      return taskHandler.searchTasks(search);
     }
   }
 
@@ -49,7 +46,7 @@ public class TaskResource {
   @Produces(MediaType.APPLICATION_JSON)
   public Task getTask(@PathParam("taskId") String taskId) {
     System.out.printf("GET /{taskId}: looking for %s\n", taskId);
-    return taskStore.getTask(taskId);
+    return taskHandler.getTask(taskId);
   }
   
   @POST
@@ -57,13 +54,7 @@ public class TaskResource {
   @Produces(MediaType.APPLICATION_JSON)
   public Response createTask(Task task) {
     System.out.printf("POST: received %s\n", task);
-    if (task.getId() == null) {
-      task.setId(UUID.randomUUID().toString());
-    } else if (taskStore.exists(task.getId())) {
-      throw new ForbiddenException(ALREADY_EXISTS);
-    }
-
-    taskStore.saveTask(task);
+    taskHandler.saveTask(task);
     return Response.status(Status.CREATED).entity(task).build();
   }
   
@@ -77,7 +68,7 @@ public class TaskResource {
       task.setId(taskId);
     }
     
-    taskStore.saveTask(task);
+    taskHandler.saveTask(task);
     return Response.status(Status.CREATED).entity(task).build();
   }
   
@@ -85,6 +76,6 @@ public class TaskResource {
   @Consumes(MediaType.TEXT_PLAIN)
   public void deleteTask(String taskId) {
     System.out.printf("DELETE: deleting %s\n", taskId);
-    taskStore.deleteTask(taskId);
+    taskHandler.deleteTask(taskId);
   }
 }
