@@ -9,6 +9,12 @@
 
   <import resource="SearchIndexer.xml"/>
   <bean class="com.nwinches.resource.TaskResource" scope="request"/>
+  <bean id="TaskHandler" class="com.nwinches.business.TaskHandler">
+    <property name="taskStore" ref="TaskStore"/>
+    <property name="smsNotifier" ref="TwilioSmsNotifier"/>
+    <property name="searchIndexer" ref="SearchlySearchIndexer"/>
+  </bean>
   <bean id="TaskStore" class="com.nwinches.dao.InMemoryTaskStore"/>
+  <bean id="TwilioSmsNotifier" class="com.nwinches.dao.TwilioSmsNotifier"/>
 
 </beans>
