@@ -11,7 +11,7 @@
     <property name="jestClient" ref="JestClient"/>
   </bean>
   
-  <bean id="JestClient" factory-bean="ConfiguredJestClientFactory" factory-method="getObject"/>
+  <bean id="JestClient" factory-bean="JestClientFactory" factory-method="getObject"/>
   
   <!-- Create the JestClientFactory -->
   <bean id="JestClientFactory" class="io.searchbox.client.JestClientFactory">
