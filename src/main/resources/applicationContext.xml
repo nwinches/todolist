@@ -1,20 +1,23 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mongo="http://www.springframework.org/data/mongo"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
   http://www.springframework.org/schema/beans/spring-beans.xsd
   http://www.springframework.org/schema/context
-  http://www.springframework.org/schema/context/spring-context.xsd"
+  http://www.springframework.org/schema/context/spring-context.xsd
+  http://www.springframework.org/schema/data/mongo
+  http://www.springframework.org/schema/data/mongo/spring-mongo.xsd"
         >
 
   <import resource="SearchIndexer.xml"/>
+  <import resource="TaskStore.xml"/>
   <bean class="com.nwinches.resource.TaskResource" scope="request"/>
   <bean id="TaskHandler" class="com.nwinches.business.TaskHandler">
-    <property name="taskStore" ref="TaskStore"/>
+    <property name="taskStore" ref="MongoTaskStore"/>
     <property name="smsNotifier" ref="SmsNotifier"/>
     <property name="searchIndexer" ref="SearchIndexer"/>
   </bean>
-  <bean id="TaskStore" class="com.nwinches.dao.InMemoryTaskStore"/>
   <bean id="SmsNotifier" class="com.nwinches.dao.TwilioSmsNotifier"/>
 
 </beans>

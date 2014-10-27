@@ -1,0 +1,30 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+  http://www.springframework.org/schema/beans/spring-beans.xsd
+  http://www.springframework.org/schema/context
+  http://www.springframework.org/schema/context/spring-context.xsd
+  http://www.springframework.org/schema/data/mongo
+  http://www.springframework.org/schema/data/mongo/spring-mongo.xsd"
+        >
+
+  <mongo:mongo host="ds049180.mongolab.com" port="49180" />
+  <mongo:db-factory id="mongoDbFactory" dbname="todolist" username="todolistapp" password="todolistapp"/>
+  <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+    <constructor-arg ref="mongo" />
+    <constructor-arg value="todolist" />
+    <constructor-arg ref="userCredentials"/>
+  </bean>
+  <mongo:repositories base-package="com.nwinches.dao.springdata"/>
+  <context:component-scan base-package="com.nwinches.dao.springdata"/>
+  
+  <bean id="MongoTaskStore" class="com.nwinches.dao.MongoTaskStore"/>
+  
+  <bean id="userCredentials" class="org.springframework.data.authentication.UserCredentials">
+    <constructor-arg value="todolistapp"/>
+    <constructor-arg value="todolistapp"/>
+  </bean>
+
+</beans>
