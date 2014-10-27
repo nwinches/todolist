@@ -5,7 +5,6 @@ import org.glassfish.jersey.server.spring.scope.RequestContextFilter;
 
 import com.nwinches.business.TaskHandler;
 import com.nwinches.dao.InMemoryTaskStore;
-import com.nwinches.dao.SearchlySearchIndexer;
 import com.nwinches.resource.TaskResource;
 
 /**
@@ -21,6 +20,5 @@ public class Main extends ResourceConfig {
     register(TaskResource.class);
     register(InMemoryTaskStore.class);
     register(TaskHandler.class);
-    register(SearchlySearchIndexer.class);
   }
 }

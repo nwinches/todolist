@@ -3,6 +3,8 @@ package com.nwinches.business;
 import java.util.List;
 import java.util.UUID;
 
+import lombok.Setter;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.nwinches.dao.SearchIndexer;
@@ -12,6 +14,7 @@ import com.nwinches.entity.Task;
 import com.nwinches.exception.NoSuchTaskException;
 import com.nwinches.exception.TaskModificationNotAllowedException;
 
+@Setter
 public class TaskHandler {
   @Autowired
   private TaskStore taskStore;

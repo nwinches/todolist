@@ -7,6 +7,8 @@ import io.searchbox.core.Search;
 
 import java.util.List;
 
+import lombok.Setter;
+
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.nwinches.entity.Task;
 import com.nwinches.exception.NoSuchTaskException;
 
-
+@Setter
 public class SearchlySearchIndexer implements SearchIndexer {
   private static final String INDEX_NAME = "todolist";
   private static final String TYPE_NAME = "task";
