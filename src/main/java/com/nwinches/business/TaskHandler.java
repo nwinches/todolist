@@ -14,6 +14,9 @@ import com.nwinches.entity.Task;
 import com.nwinches.exception.NoSuchTaskException;
 import com.nwinches.exception.TaskModificationNotAllowedException;
 
+/**
+ * Contains business logic to store/search/update tasks.
+ */
 @Setter
 public class TaskHandler {
   @Autowired
@@ -42,6 +45,21 @@ public class TaskHandler {
       return taskStore.searchTasks(search);
     }
   }
+  
+  public void updateTask(Task task, String number) throws TaskModificationNotAllowedException {
+    Task existing = taskStore.getTask(task.getId());
+    try {
+      searchIndexer.addTask(task);
+      taskStore.saveTask(task);
+      if (!existing.isComplete() && task.isComplete()) {
+        String message = String.format("Completed task: '%s'", task.getTitle());
+        smsNotifier.sendSms(message, number);
+      }
+    } catch (Exception e) {
+      System.out.println("Exception storing task");
+      e.printStackTrace();
+    }
+  }
 
   /**
    * Saves a task to the taskStore. If no ID is provided, uses a random UUID.
@@ -64,6 +82,12 @@ public class TaskHandler {
   }
 
   public void deleteTask(String taskId) {
-    taskStore.deleteTask(taskId);
+    try {
+      searchIndexer.removeTask(taskId);
+      taskStore.deleteTask(taskId);
+    } catch (Exception e) {
+      System.out.println("Exception deleting task");
+      e.printStackTrace();
+    }
   }
 }

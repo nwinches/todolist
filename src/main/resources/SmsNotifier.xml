@@ -1,0 +1,33 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+  http://www.springframework.org/schema/beans/spring-beans.xsd
+  http://www.springframework.org/schema/context
+  http://www.springframework.org/schema/context/spring-context.xsd"
+        >
+
+  <bean id="SmsNotifier" class="com.nwinches.dao.TwilioSmsNotifier">
+    <property name="messageFactory" ref="SmsMessageFactory"/>
+    <property name="fromNumber" ref="FromNumber"/>
+    <property name="defaultToNumber" ref="DefaultToNumber"/>
+  </bean>
+  
+  <bean id="SmsMessageFactory" factory-bean="TwilioAccount" factory-method="getMessageFactory"/>
+  
+  <bean id="TwilioAccount" factory-bean="TwilioRestClient" factory-method="getAccount"/>
+  
+  <bean id="TwilioRestClient" class="com.twilio.sdk.TwilioRestClient">
+    <constructor-arg value="${twilio.sid}"/>
+    <constructor-arg value="${twilio.auth}"/>
+  </bean>
+  
+  <bean id="FromNumber" class="java.lang.String">
+    <constructor-arg value="${twilio.from}"/>
+  </bean>
+  
+  <bean id="DefaultToNumber" class="java.lang.String">
+    <constructor-arg value="${twilio.defaultTo}"/>
+  </bean>
+  
+</beans>

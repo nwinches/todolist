@@ -9,15 +9,15 @@
   http://www.springframework.org/schema/data/mongo
   http://www.springframework.org/schema/data/mongo/spring-mongo.xsd"
         >
-
-  <import resource="SearchIndexer.xml"/>
+  
+  <!-- contains account specific information -->
+  <context:property-placeholder location="classpath:todolist.properties" />
+  
+  <import resource="TaskHandler.xml"/>
   <import resource="TaskStore.xml"/>
+  <import resource="SearchIndexer.xml"/>
+  <import resource="SmsNotifier.xml"/>
+  
   <bean class="com.nwinches.resource.TaskResource" scope="request"/>
-  <bean id="TaskHandler" class="com.nwinches.business.TaskHandler">
-    <property name="taskStore" ref="MongoTaskStore"/>
-    <property name="smsNotifier" ref="SmsNotifier"/>
-    <property name="searchIndexer" ref="SearchIndexer"/>
-  </bean>
-  <bean id="SmsNotifier" class="com.nwinches.dao.TwilioSmsNotifier"/>
-
+  
 </beans>

@@ -1,11 +1,9 @@
 package com.nwinches.resource;
 
 import java.util.List;
-import java.util.UUID;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
-import javax.ws.rs.ForbiddenException;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -17,6 +15,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import lombok.Setter;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.nwinches.business.TaskHandler;
@@ -27,6 +27,7 @@ import com.nwinches.entity.Task;
  */
 @Path("tasks")
 public class TaskResource {
+  @Setter
   @Autowired
   private TaskHandler taskHandler;
 
@@ -62,13 +63,13 @@ public class TaskResource {
   @Path("/{taskId}")
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.APPLICATION_JSON)
-  public Response updateTask(@PathParam("taskId") String taskId, Task task) {
+  public Response updateTask(@PathParam("taskId") String taskId, @QueryParam("notifyNumber") String notifyNumber, Task task) {
     System.out.printf("PUT: received %s for %s\n", task, taskId);
     if (task.getId() == null) {
       task.setId(taskId);
     }
     
-    taskHandler.saveTask(task);
+    taskHandler.updateTask(task, notifyNumber);
     return Response.status(Status.CREATED).entity(task).build();
   }
   

@@ -24,7 +24,7 @@
     <constructor-arg value="true"/>
   </bean>
   <bean id="HttpClientConfigBuilder" class="io.searchbox.client.config.HttpClientConfig.Builder">
-    <constructor-arg value="https://site:551d2e85f227f53d7111ca3167768e03@bofur-us-east-1.searchly.com"/>
+    <constructor-arg value="${searchly.url}"/>
   </bean>
   
 </beans>

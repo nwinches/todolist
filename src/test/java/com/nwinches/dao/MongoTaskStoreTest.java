@@ -19,7 +19,6 @@ import com.nwinches.exception.NoSuchTaskException;
 
 public class MongoTaskStoreTest extends AbstractTest {
   private static final String TASK_ID = "taskId";
-  private static final String TITLE = "This is a Title";
 
   @Mock
   private Task task;
@@ -73,6 +72,16 @@ public class MongoTaskStoreTest extends AbstractTest {
     
     replayAll();
     List<Task> actual = taskStore.listTasks();
+    assertEquals(1, actual.size());
+    assertEquals(task, actual.get(0));
+  }
+  
+  @Test
+  public void testSearchTasks() {
+    expect(repository.findByTitleContainingOrBodyContaining("foo")).andReturn(ImmutableList.of(task));
+    
+    replayAll();
+    List<Task> actual = taskStore.searchTasks("foo");
     assertEquals(1, actual.size());
     assertEquals(task, actual.get(0));
   }
