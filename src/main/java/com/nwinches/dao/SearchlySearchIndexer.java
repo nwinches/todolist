@@ -4,6 +4,8 @@ import io.searchbox.client.JestClient;
 import io.searchbox.client.JestResult;
 import io.searchbox.core.Index;
 import io.searchbox.core.Search;
+import io.searchbox.core.Delete;
+import io.searchbox.indices.DeleteIndex;
 
 import java.util.List;
 
@@ -31,8 +33,9 @@ public class SearchlySearchIndexer implements SearchIndexer {
   }
 
   @Override
-  public void removeTask(String taskId) {
-
+  public void removeTask(String taskId) throws Exception {
+    Delete delete = new Delete.Builder(taskId).index(INDEX_NAME).type(TYPE_NAME).build();
+    jestClient.execute(delete);
   }
 
   @Override
